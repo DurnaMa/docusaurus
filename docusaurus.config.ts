@@ -7,7 +7,7 @@ dotenvconfig();
 
 /* TODO: change to read configuration from environment */
 const blogEnabled = Boolean(process.env.BLOG_ENABLED === 'true')
-const gitRepositoryUrl = process.env.GIT_REPOSITORY_URL ?? "https://github.com/DurnaMa/docusaurus"
+const gitRepositoryUrl = process.env.GIT_REPOSITORY_URL ?? "https://github.com/DurnaMa/"
 
 
 const config: Config = {
@@ -87,7 +87,7 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/DurnaMa/docusaurus',
+          href: 'https://github.com/DurnaMa',
           label: 'Github',
           position: 'right',
         },
@@ -114,7 +114,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/DurnaMa/docusaurus',
+              href: 'https://github.com/DurnaMa',
             },
             {
               label: 'Template',
