@@ -27,8 +27,7 @@ type="tip"
 - A cloud V-Server running Ubuntu
 - A local machine with SSH installed
 - A GitHub account
-
-<!-- TODO: adjust if needed (e.g. Ubuntu version, provider) -->
+- A git
 
 ---
 
@@ -38,23 +37,21 @@ The SSH key pair is generated on the **local machine**, not on the server.
 
 1. Generate a new key pair on your local computer:
 
-   ```bash
-   ssh-keygen -t ed25519 -C "your-email@example.com"
-   ```
+```bash
+ssh-keygen -t ed25519 -C "<your-email@example.com>"
+```
 
 2. Copy the public key to the server using `ssh-copy-id`:
 
-   ```bash
-   ssh-copy-id -i ~/.ssh/id_ed25519.pub user@your-server-ip
-   ```
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519.pub user@your-server-ip
+```
 
 3. Test the login with the SSH key **before** disabling password authentication:
 
-   ```bash
-   ssh -i ~/.ssh/id_ed25519 user@your-server-ip
-   ```
-
-<!-- TODO: replace user/IP placeholders in your head while testing — do NOT put your real private key or password anywhere in this repo -->
+```bash
+ssh -i ~/.ssh/id_ed25519 <user@your-server-ip>
+```
 
 ---
 
@@ -64,30 +61,30 @@ Passwords can be a source of security risks, which is why password-based logins 
 
 1. Open the SSH daemon configuration:
 
-   ```bash
-   sudo nano /etc/ssh/sshd_config
-   ```
+```bash
+sudo nano /etc/ssh/sshd_config
+```
 
 2. Find the line `#PasswordAuthentication yes` and change it to:
 
-   ```
-   PasswordAuthentication no
-   ```
+```
+PasswordAuthentication no
+```
 
 3. Save the file and exit.
 4. Restart the SSH service to apply the changes:
 
-   ```bash
-   sudo systemctl restart ssh.service
-   ```
+```bash
+sudo systemctl restart ssh.service
+```
 
 5. Verify that password login is no longer possible:
 
-   ```bash
-   ssh -o PubkeyAuthentication=no user@your-server-ip
-   ```
+```bash
+ssh -o PubkeyAuthentication=no <user@your-server-ip>
+```
 
-   This login attempt should be rejected.
+This login attempt should be rejected.
 
 ---
 
@@ -116,53 +113,54 @@ The goal is to serve an alternative HTML page instead of the default Nginx start
 
 1. Create the directory and the HTML file:
 
-   ```bash
-   sudo mkdir -p /var/www/alternatives/
-   sudo nano /var/www/alternatives/alternate-index.html
-   ```
+```bash
+sudo mkdir -p /var/www/alternatives/
+sudo nano /var/www/alternatives/alternate-index.html
+```
 
-   ```html
-   <!doctype html>
-   <html>
-   <head>
-     <meta charset="utf-8">
-     <title>Hello, Nginx!</title>
-   </head>
-   <body>
-     <h1>Hello, Nginx!</h1>
-     <p>I have just configured our Nginx web server on Ubuntu Server!</p>
-   </body>
-   </html>
-   ```
+```html
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Hello, Nginx!</title>
+  </head>
+  <body>
+    <h1>Hello, Nginx!</h1>
+
+    <p>I have just configured our Nginx web server on Ubuntu Server!</p>
+  </body>
+</html>
+```
 
 2. Add a site configuration under `/etc/nginx/sites-enabled/`:
 
-   ```bash
-   sudo nano /etc/nginx/sites-enabled/alternatives
-   ```
+```bash
+sudo nano /etc/nginx/sites-enabled/alternatives
+```
 
-   ```nginx
-   server {
-       listen 8081;
-       listen [::]:8081;
+```nginx
+server {
+    listen 8081;
+    listen [::]:8081;
 
-       root /var/www/alternatives;
-       index alternate-index.html;
+    root /var/www/alternatives;
+    index alternate-index.html;
 
-       location / {
-           try_files $uri $uri/ =404;
-       }
-   }
-   ```
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+```
 
 3. Test and reload Nginx:
 
-   ```bash
-   sudo nginx -t
-   sudo systemctl reload nginx
-   ```
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
 
-4. Open `http://your-server-ip:8081` in your browser to see the alternative start page.
+4. Open `<http://your-server-ip:8081>` in your browser to see the alternative start page.
 
 ---
 
@@ -180,15 +178,15 @@ authenticates the server against GitHub.
 Set the same user data as in your GitHub account:
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "your-email@example.com"
+git config --global user.name "<Your Name>"
+git config --global user.email "<your-email@example.com>"
 git config --global --list
 ```
 
 ### Generate an SSH key on the server
 
 ```bash
-ssh-keygen -t ed25519 -C "your-email@example.com"
+ssh-keygen -t ed25519 -C "<your-email@example.com>"
 cat ~/.ssh/id_ed25519.pub
 ```
 
@@ -205,14 +203,5 @@ Expected output: `Hi USERNAME! You've successfully authenticated, ...`
 As a final test, a repository was cloned via SSH:
 
 ```bash
-git clone git@github.com:BENUTZER/REPOSITORY.git
+git clone git@github.com:DurnaMa/docusaurus.git
 ```
----
-
-## 7. Verification / Testing
-
-- [x] Login with SSH key works
-- [x] Login with username/password is rejected
-- [x] `sudo nginx -t` reports a valid configuration
-- [x] The alternative HTML page is reachable in the browser
-- [x] `ssh -T git@github.com` confirms GitHub authentication

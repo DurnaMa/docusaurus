@@ -20,24 +20,24 @@ Checkout this repository to see the code/implementation
 - [pnpm](https://pnpm.io/) (package manager for faster and more efficient dependency handling)
 
 1. Installation
-    ```
-    $ pnpm install
-    ```
+```
+pnpm install
+```
 
 2. Local Development
 
-   ```
-   $ pnpm start
-   ```
+```
+pnpm start
+```
 
-   This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
 3. Build
 
-    ```
-    $ pnpm build
-    ```
-    This command generates static content into the `build` directory and can be served using any static contents hosting service.
+```
+pnpm buil
+```
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
 ## Description
 
