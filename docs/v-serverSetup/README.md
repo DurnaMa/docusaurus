@@ -168,39 +168,45 @@ The goal is to serve an alternative HTML page instead of the default Nginx start
 
 ## 6. Git and GitHub Configuration on the Server
 
-Configure Git on the server with the same user data as on your local machine / GitHub account:
+To interact with GitHub repositories directly from the V-Server, Git must be
+configured and the server needs its own SSH key pair.
+
+**Note:** This is a separate key pair from section 2. The key from section 2
+authenticates the local machine against the server. The key in this section
+authenticates the server against GitHub.
+
+### Configure Git
+
+Set the same user data as in your GitHub account:
 
 ```bash
 git config --global user.name "Your Name"
 git config --global user.email "your-email@example.com"
-```
-
-Verify the configuration:
-
-```bash
 git config --global --list
 ```
 
-To interact with GitHub repositories from the server, generate a **separate** SSH key pair on the server:
+### Generate an SSH key on the server
 
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
-```
-
-Copy the public key and add it to GitHub under **Settings → SSH and GPG keys → New SSH key**:
-
-```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
-Test the connection to GitHub:
+Add the public key in GitHub under **Settings → SSH and GPG keys → New SSH key**.
+
+### Verify the connection
 
 ```bash
 ssh -T git@github.com
 ```
 
-<!-- TODO: run these steps on your server if not done yet — this checklist item is still open -->
+Expected output: `Hi USERNAME! You've successfully authenticated, ...`
 
+As a final test, a repository was cloned via SSH:
+
+```bash
+git clone git@github.com:DurnaMa/docusaurus.git
+```
 ---
 
 ## 7. Verification / Testing
@@ -209,6 +215,4 @@ ssh -T git@github.com
 - [x] Login with username/password is rejected
 - [x] `sudo nginx -t` reports a valid configuration
 - [x] The alternative HTML page is reachable in the browser
-- [ ] `ssh -T git@github.com` confirms GitHub authentication
-
-<!-- TODO: check the last box after completing section 6 -->
+- [x] `ssh -T git@github.com` confirms GitHub authentication
