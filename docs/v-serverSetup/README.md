@@ -205,7 +205,7 @@ Expected output: `Hi USERNAME! You've successfully authenticated, ...`
 As a final test, a repository was cloned via SSH:
 
 ```bash
-git clone git@github.com:DurnaMa/docusaurus.git
+git clone git@github.com:BENUTZER/REPOSITORY.git
 ```
 ---
 
