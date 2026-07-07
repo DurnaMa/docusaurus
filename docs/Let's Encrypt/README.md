@@ -22,7 +22,7 @@ Distribution packages are often too old, so install via Snap:
 
 ```bash
 sudo apt update
-sudo apt install snapd
+sudo apt install snapd    # only if snapd is not installed yet
 sudo snap install --classic certbot
 sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
