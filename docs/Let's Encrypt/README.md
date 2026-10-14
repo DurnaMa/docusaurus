@@ -4,8 +4,12 @@ This guide shows step by step how to get a **free TLS certificate**
 for a public IP address (here: `YOUR_IP`, web server on port `8081`)
 using Let's Encrypt.
 
-> **Note:** Replace `<YOUR_IP>` in all commands with your own
-> public IP address (e.g. `203.0.113.10`).
+:::Note
+
+Replace `<YOUR_IP>` in all commands with your own
+public IP address (e.g. `203.0.113.10`).
+
+:::
 
 ## Prerequisites
 
@@ -62,8 +66,12 @@ sudo certbot certonly --webroot \
   --ip-address YOUR_IP
 ```
 
-Tip: Test with `--staging` first (issues an untrusted test certificate)
+:::Tip 
+
+Test with `--staging` first (issues an untrusted test certificate)
 to avoid rate limits. Then run the same command without `--staging`.
+
+:::
 
 ## Step 4: Certificate file locations
 
@@ -97,9 +105,13 @@ server {
 }
 ```
 
-> Warning: `ssl` must appear on **every** `listen` line (including IPv6).
-> Keep `root` and `index` at server level, not inside the `location` block –
-> otherwise they override each other.
+:::Warning 
+
+`ssl` must appear on **every** `listen` line (including IPv6).
+Keep `root` and `index` at server level, not inside the `location` block –
+otherwise they override each other.
+
+:::
 
 Test the config and reload:
 
